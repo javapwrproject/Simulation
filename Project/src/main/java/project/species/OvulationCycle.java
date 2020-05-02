@@ -5,7 +5,7 @@ import java.util.Timer;
 
 public class OvulationCycle  extends TimerTask {
 	
-	boolean canLayEgg;
+	private boolean canLayEgg;
 	
 	@Override
 	public void run() {

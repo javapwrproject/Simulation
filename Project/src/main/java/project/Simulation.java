@@ -15,34 +15,59 @@ public class Simulation {
 	
 	public static void runSimulation() {
 		
-		while (true) { // in the future MAXTIME
+		while (true) { // MAXTIME
 			for (IMite m : mitelist) { // alternative (int i = 0; i < mitelist.size(); i++) { (when remove object then i--)
 				
 				if(m.isStarved()) {
-					map.setPosition(m.getCordinates(), 0);   // information to map that now this place is empty
+					map.setStatus(m.getCordinates(), 0);   // information to map that now this place is empty
 					mitelist.remove(m); // if map would have mitelist by reference it might be good because map could remove object from list in case of "setPosition" 
 					}
 				
 				if (m.layEggAbility()) {
 					egglist.add(new Egg(m.getType(), m.getCordinates()));
 					m.layEgg();	
-					map.setPosition(m.getCordinates(), 0); // or mite should tell it to map
+					map.setStatus(m.getCordinates(), 0); // or mite should tell it to map
 				}
 				
-				m.move();
+				while(true) {
+					m.move();
+					switch (map.getStatus(m.getCordinates() ) ) {
+						case 0: { // empty
+							map.setStatus(m.getCordinates(), 8);
+							break;
+						}
+						case 1: { // food
+							m.eat();
+							map.setStatus(m.getCordinates(), 8);
+							break;
+						}
+						case 2: { // egg
+							m.move();
+						}
+						case 3: { // egg other specimen this case to modife in future
+							m.move();
+						}
+						case 4: { // other speciemen
+							m.move(); //in future some inkrementator to work on "surrended state"
+						}		
+						case 5: { // same speciemen
+							m.move(); //in future some inkrementator to work on "surrended state"
+						}		
+					}
+				}
+				
 			}
 			
 			
 			for (IEgg e : egglist) { 
 				
 				if (e.timeToHatch()) {
-					
-					if (e.getType() == 0) mitelist.add( new Dermathogides(e.getCordinates() ) );
-					else mitelist.add( new Euroglyphus(e.getCordinates() ) );
-					//mitelist.add( (e.getType() == 0) ? new Dermathogides(e.cordinates)  : new Dermathogides(e.cordinates) )
+					//mitelist.add( (e.getType() == 0) ? new Dermathogides(e.cordinates)  : new Dermathogides(e.cordinates) ) // altegnative
 					//(e.getType() == 0) ? mitelist.add( new Dermathogides(e.getCordinates() ) ) : mitelist.add(new Dermathogides(e.getCordinates() ) ); // convenntionaly type 0/1 is Dermathogigus/Eucthogius
+					if (e.getType() == 8) mitelist.add( new Dermathogides(e.getCordinates() ) );
+					else mitelist.add( new Euroglyphus(e.getCordinates() ) );
 					egglist.remove(e);
-					map.setPosition(e.getCordinates(), 0);
+					map.setStatus(e.getCordinates(), 0);
 				}
 			}
 	    }

@@ -3,8 +3,9 @@ import project.Cordinates;
 
 public abstract class AMite {
 	int type; // char type ?
+	private int direction; // ENUM ? might be 1-16 avalible directions
 	// can be mood by user maybe but not now
-	int health;
+	private int health = 0;
 	int strength;
 	int speed;
 	int fertility;
@@ -17,7 +18,7 @@ public abstract class AMite {
 	}
 	
 	public boolean layEggAbility() {
-		return ovulation.canLayEgg;
+		return ovulation.layEggAbility();
 	}
 	
 	public boolean isStarved() {
@@ -28,12 +29,22 @@ public abstract class AMite {
 		return type;
 	}
 	
+	public void setHealth(int vital) { // primitive way to loos health for now
+		health += vital; 
+	}
+	
 	public void layEgg() {
 		ovulation.resetCycle();
 	}
 	
 	public void eat() {
-		health++; // in the future colaboration with map
+		health += 10; // in the future colaboration with map maybe
+	}
+	int getDirection() {
+		return direction;
 	}
 	
+	void setDirection(int direction) {
+		this.direction = direction;
+	}
 }	

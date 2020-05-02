@@ -19,7 +19,7 @@ public class Egg extends TimerTask implements IEgg{
 	Timer timer = new Timer();
 	timer.schedule(this, 10*1000);
 	this.type = type;
-	this.cordinates = cordinates;
+	this.cordinates = new Cordinates(cordinates); //deep copy
 	}
 	
 	public boolean timeToHatch() {

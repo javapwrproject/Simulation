@@ -9,6 +9,11 @@ public class Cordinates {
 		this.y = y;
 	}
 	
+	public Cordinates (Cordinates cordinates) {
+		this.x  = cordinates.getX();
+		this.y = cordinates.getY();
+	}
+	
 	public int getX() {
 		return this.x;
 	}
