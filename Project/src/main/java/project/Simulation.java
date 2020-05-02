@@ -5,7 +5,10 @@ import project.species.IMite;
 import project.eggs.Egg;
 import project.eggs.IEgg;
 import project.map.IMap;
+import project.map.Map;
+
 import java.util.LinkedList;
+import java.util.Random;
 
 public class Simulation {
 	
@@ -71,7 +74,29 @@ public class Simulation {
 				}
 			}
 	    }
-	}	
+	}
+	
+	public static void setSimulation(int d, int e, int x, int y) {
+		map = new Map();
+		
+		Random rnd = new Random();
+		for (int i = 0; i < d; i++) {
+			Cordinates crd = new Cordinates(rnd.nextInt(x), rnd.nextInt(y));
+			
+			if (map.getStatus(crd) ==0)
+				map.setStatus(crd, 8);
+			else i--;	
+		}
+		
+		for (int i = 0; i < e; i++) {
+			Cordinates crd = new Cordinates(rnd.nextInt(x), rnd.nextInt(y));
+			
+			if (map.getStatus(crd) ==0)
+				map.setStatus(crd, 7);
+			else i--;	
+		}
+		
+	}
 	
 	
 

@@ -2,16 +2,50 @@ package project.map;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import project.Cordinates;
 
-public class Map implements IMap{
+public class Map extends TimerTask implements IMap{
 	
 	// HashMap<Cordinates, Integer> expanse = new HashMap<>(); Alternative forms might be better
 	// ArrayList<ArrayList<Integer>> map = new ArrayList<>();
+	Map (int foodPerDay, int x, int y) {
+		this.foodPerDay = foodPerDay;
+		X = x;
+		Y = y;
+		Timer timer = new Timer();
+		timer.schedule(this, 10*9000, 10*9000);
+	}
 	
-	 Integer[][] expanse = new Integer[100][100]; // dimensions
+	public Map () {
+		X = 100;
+		Y = 100;
+		foodPerDay = 100;
+		Timer timer = new Timer();
+		timer.schedule(this, 10*9000, 10*9000);
+	}
 	
-	void foodGenerate() {
+	private int X;
+	private int Y;
+	final private int foodPerDay;
+	
+	 Integer[][] expanse = new Integer[X][Y]; // dimensions
+	
+	private void foodGenerate(int N) {
+		Random rnd = new Random();
+		
+		for (int i = 0; i < N; i++) {
+			
+			int x = rnd.nextInt(X);
+			int y = rnd.nextInt(Y);
+			
+			if (expanse[x][y] == 0) {
+				expanse[x][y] = 1;
+			} else i--;
+		}
 		
 	}
 
@@ -24,6 +58,12 @@ public class Map implements IMap{
 	@Override
 	public int getStatus(Cordinates cordinates) {
 		return expanse[cordinates.getX()][cordinates.getY()];
+	}
+
+	@Override
+	public void run() {
+		foodGenerate(foodPerDay);
+		
 	}
 	
 
