@@ -14,8 +14,8 @@ public class Simulation {
 	
 	static int dermathoideses = 10;
 	static int euroglyphuses = 10;
-	static int length = 100;
-	static int width = 100;
+	static int length = 10;
+	static int width = 10;
 	
 	static IMap map;
 	static LinkedList<IMite> mitelist = new LinkedList<>();
@@ -88,6 +88,7 @@ public class Simulation {
 		for (int i = 0; i < dermathoideses; i++) {
 			Cordinates crd = new Cordinates(rnd.nextInt(length), rnd.nextInt(width));
 			
+			System.out.println("rozmiar mitow" + mitelist.size()); //
 			if (map.getStatus(crd) == 0) {
 				map.setStatus(crd, 8);
 				mitelist.add(new Dermathogides(crd));
@@ -102,7 +103,11 @@ public class Simulation {
 				mitelist.add(new Euroglyphus(crd));
 			} else i--;	
 		}
-		
+	
+		for (int j = 0; j < 10; j++)
+			for (int k = 0; k < 10; k++)
+		        System.out.println(map.getStatus(new Cordinates(j,k)));
+		System.out.println("koniec tab");
 	}
 	
 	

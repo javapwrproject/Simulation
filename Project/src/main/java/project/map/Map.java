@@ -17,23 +17,24 @@ public class Map extends TimerTask implements IMap{
 		X = x;
 		Y = y;
 		Timer timer = new Timer();
-		timer.schedule(this, 10*9000, 10*9000);
+		timer.schedule(this, 100, 10*9000);
 	}
 	
 	public Map (int x, int y) {
 		X = x;
 		Y = y;
-		foodPerDay = 100;
+		foodPerDay = 10;
 		Timer timer = new Timer();
-		timer.schedule(this, 10*9000, 10*9000);
+		timer.schedule(this, 100, 9*10000);
 	}
 	
-	private int X;
+	private int X; // dimensions
 	private int Y;
 	final private int foodPerDay;
 	
-	 Integer[][] expanse = new Integer[X][Y]; // dimensions
-	
+	 int[][] expanse = new int[100][100];
+	 
+	 
 	private void foodGenerate(int N) {
 		Random rnd = new Random();
 		
@@ -66,5 +67,8 @@ public class Map extends TimerTask implements IMap{
 		
 	}
 	
-
+	public void getDimensions() {
+		System.out.println(X + " " + Y);
+	}
+	
 }
