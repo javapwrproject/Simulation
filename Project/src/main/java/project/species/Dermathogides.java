@@ -10,8 +10,8 @@ public class Dermathogides extends AMite implements IMite {
 	
 	public Dermathogides (Cordinates cordinates) {
 		this.type = 0;
-		this.fertility = 8; // species differentiation factor
 		setHealth(20);
+		this.fertility = 8; // species differentiation factor
 		this.speed = 10;
 		this.strength = 3;
 		this.cordinates = new Cordinates(cordinates);
@@ -25,7 +25,7 @@ public class Dermathogides extends AMite implements IMite {
 	@Override
 	public void move() {
 		
-		if (rnd.nextInt(5)%4 == 0) {
+		if (rnd.nextInt(5)%4 == 8) {
 			setDirection(rnd.nextInt(10));
 		}
 		

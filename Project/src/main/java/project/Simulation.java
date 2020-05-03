@@ -12,6 +12,11 @@ import java.util.Random;
 
 public class Simulation {
 	
+	static int dermathoideses = 10;
+	static int euroglyphuses = 10;
+	static int length = 100;
+	static int width = 100;
+	
 	static IMap map;
 	static LinkedList<IMite> mitelist = new LinkedList<>();
 	static LinkedList<IEgg> egglist = new LinkedList<>();
@@ -76,24 +81,26 @@ public class Simulation {
 	    }
 	}
 	
-	public static void setSimulation(int d, int e, int x, int y) {
-		map = new Map();
+	public static void setSimulation() {
+		map = new Map(length, width);
 		
 		Random rnd = new Random();
-		for (int i = 0; i < d; i++) {
-			Cordinates crd = new Cordinates(rnd.nextInt(x), rnd.nextInt(y));
+		for (int i = 0; i < dermathoideses; i++) {
+			Cordinates crd = new Cordinates(rnd.nextInt(length), rnd.nextInt(width));
 			
-			if (map.getStatus(crd) ==0)
+			if (map.getStatus(crd) == 0) {
 				map.setStatus(crd, 8);
-			else i--;	
+				mitelist.add(new Dermathogides(crd));
+			}	else i--;	
 		}
 		
-		for (int i = 0; i < e; i++) {
-			Cordinates crd = new Cordinates(rnd.nextInt(x), rnd.nextInt(y));
+		for (int i = 0; i < euroglyphuses; i++) {
+			Cordinates crd = new Cordinates(rnd.nextInt(length), rnd.nextInt(width));
 			
-			if (map.getStatus(crd) ==0)
+			if (map.getStatus(crd) == 0) {
 				map.setStatus(crd, 7);
-			else i--;	
+				mitelist.add(new Euroglyphus(crd));
+			} else i--;	
 		}
 		
 	}
@@ -101,6 +108,8 @@ public class Simulation {
 	
 
 	public static void main(String[] args) {
+		
+		Simulation.setSimulation();
 		
 		Simulation.runSimulation();
 		
