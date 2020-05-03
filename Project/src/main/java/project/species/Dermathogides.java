@@ -9,54 +9,69 @@ public class Dermathogides extends AMite implements IMite {
 	Random rnd = new Random();
 	
 	public Dermathogides (Cordinates cordinates) {
-		this.type = 0;
-		setHealth(20);
-		this.fertility = 8; // species differentiation factor
-		this.speed = 10;
-		this.strength = 3;
 		this.cordinates = new Cordinates(cordinates);
+		this.type = 8;
+		setHealth(rnd.nextInt(10) + 10);
+		setDirection(rnd.nextInt(10));
+		
+		this.fertility = 11; // species differentiation factor
+		this.speed = 6;
+		this.strength = 8;
 		
 		ovulation = new OvulationCycle();
 		Timer timer = new Timer();
-		timer.schedule(ovulation,5*1000, fertility*5*1000);
+		timer.schedule(ovulation, fertility*5*1000, fertility*5*1000);
 		
 	}
 
 	@Override
-	public void move() {
+	public Cordinates move() {
 		
-		if (rnd.nextInt(5)%4 == 8) {
+		Cordinates crd = new Cordinates (cordinates);
+		
+		if (rnd.nextInt(5)%4 == 0) {
 			setDirection(rnd.nextInt(10));
 		}
 		
-		int k = rnd.nextInt(4);
+		int k = rnd.nextInt(3);
 	
 		switch (getDirection() ) {
 			case 1: {
-				cordinates.setCordinates(-1*k, -1*k);
+				crd.modCordinates(-1*k, -1*k);
+				break;
 			}	
 			case 2:
-				cordinates.setCordinates(-1*k, 0*k);
+				crd.modCordinates(-1*k, 0*k);
+				break;
 			case 3:
-				cordinates.setCordinates(-1*k, 1*k);
+				crd.modCordinates(-1*k, 1*k);
+				break;
 			case 4:
-				cordinates.setCordinates(0*k, -1*k);
+				crd.modCordinates(0*k, -1*k);
+				break;
 			case 5:
-				cordinates.setCordinates(0*k, 0*k);
+				crd.modCordinates(0*k, 0*k);
+				break;
 			case 6:
-				cordinates.setCordinates(0*k, 1*k);
+				crd.modCordinates(0*k, 1*k);
+				break;
 			case 7:
-				cordinates.setCordinates(1*k, -1*k);
+				crd.modCordinates(1*k, -1*k);
+				break;
 			case 8:
-				cordinates.setCordinates(1*k, 0*k);
+				crd.modCordinates(1*k, 0*k);
+				break;
 			case 9:
-				cordinates.setCordinates(1*k, 1*k);
+				crd.modCordinates(1*k, 1*k);
+				break;
 				
 			default: {
-				cordinates.setCordinates(0*k, 0*k);	
+				crd.modCordinates(0*k, 0*k);
+				break;
 				}
 		}
-		this.setHealth(-1);
+		//this.setHealth(-1);
+		return crd;
 	}
 
 

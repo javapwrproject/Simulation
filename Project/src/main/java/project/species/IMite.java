@@ -3,7 +3,7 @@ package project.species;
 import project.Cordinates;
 
 public interface IMite {
-	public void move();
+	public Cordinates move();
 	public Cordinates getCordinates();
 	public boolean layEggAbility();
 	public boolean isStarved();

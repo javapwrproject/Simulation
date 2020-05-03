@@ -22,12 +22,20 @@ public class Cordinates {
 		return this.y;
 	}
 	
+	public void setX(int x) {
+		this.x = x;
+	}
+	
+	public void setY(int y) {
+		this.y = y;
+	}
+	
 	public Cordinates getCordinates() {
 		return this;
 	}
 	
-	public void setCordinates(int x, int y) {
-		this.x  = x;
-		this.y = y;
+	public void modCordinates(int x, int y) {
+		this.x += x;
+		this.y += y;
 	}
 }

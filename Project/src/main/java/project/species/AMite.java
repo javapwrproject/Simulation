@@ -3,9 +3,9 @@ import project.Cordinates;
 
 public abstract class AMite {
 	int type; // char type ?
-	private int direction; // ENUM ? might be 1-16 avalible directions
+	private int direction; // ENUM ? might be 1-9 avalible directions
 	// can be mood by user maybe but not now
-	private int health = 0;
+	private int health;
 	int strength;
 	int speed;
 	int fertility;
