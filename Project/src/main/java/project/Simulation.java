@@ -13,7 +13,7 @@ import java.util.Timer;
 
 public class Simulation {
 	
-	static int dermathoideses = 2;
+	static int dermathoideses = 1;
 	static int euroglyphuses = 2;
 	static int length = 10;
 	static int width = 10;
@@ -28,34 +28,37 @@ public class Simulation {
 		while (true) { // MAXTIME
 			for (IMite m : mitelist) { 
 				
-				/*if(m.isStarved()) {
-					map.setStatus(m.getCordinates(), 0);   // information to map that now this place is empty
+				if(m.isStarved()) {
+					map.setStatus(m.getCordinates(), 0); // information to map that now this place is empty
 					mitelist.remove(m); // if map would have mitelist by reference it might be good because map could remove object from list in case of "setPosition" 
+					continue;
 					}
-				/*
+				
 				if (m.layEggAbility()) {
 					egglist.add(new Egg(m.getType(), m.getCordinates()));
 					m.layEgg();	
-					map.setStatus(m.getCordinates(), 0); // or mite should tell it to map
+					map.setStatus(m.getCordinates(), m.getType()*10 ); // or mite should tell it to map
 				}
-				*/
+				
 				boolean bool = true;
 				while(bool) {
-					System.out.println("index " + mitelist.indexOf(m)); 
-					Cordinates crd = new Cordinates (m.move());
-					map.setStatus(m.getCordinates(), 0);
+					if (mitelist.size() == 0) break; 
 					
+					if (map.getStatus(m.getCordinates()) == m.getType()) //other case it mean that there is his egg
+						map.setStatus(m.getCordinates(), 0);
+					// System.out.print("index " + mitelist.indexOf(m)); 
+					
+					Cordinates crd = new Cordinates (m.move());
 					if (crd.getX() < 0) crd.setX(0);
 					if (crd.getX() >= length)  crd.setX(length-1);
 					if (crd.getY() < 0)  crd.setY(0);
 					if (crd.getY() >= width)  crd.setY(width-1);
 					
-					
 					switch (map.getStatus(crd ) ) {
 					
 						case 0: { // empty
 							map.setStatus(crd, m.getType() );
-							System.out.println("case 0");
+							// System.out.println(" case 0");
 							m.getCordinates().setX(crd.getX() );
 							m.getCordinates().setY(crd.getY() );
 							bool = false;
@@ -64,20 +67,20 @@ public class Simulation {
 						case 1: { // food
 							m.eat();
 							map.setStatus(crd, m.getType());
-							System.out.println("case 1");
+							// System.out.println("case 1");
 							m.getCordinates().setX(crd.getX() );
 							m.getCordinates().setY(crd.getY() );
 							bool = false;
 							break;
 						}
-						case 2: { // egg
+						case 80: { // egg
 							break;
 						}
-						case 3: { // egg other specimen this case to modife in future
-							break;
+						case 70: { // egg other specimen
+							break; // to work on very hungry state
 						}
 						case 7: { // other speciemen
-							 break;     //in future some inkrementator to work on "surrended state"
+							 break; //in future some inkrementator to work on "surrended state"
 						}		
 						case 8: { // same speciemen
 							 break;
@@ -87,33 +90,59 @@ public class Simulation {
 				
 			}
 			
-			/*
+			
 			for (IEgg e : egglist) { 
 				
 				if (e.timeToHatch()) {
-					//(e.getType() == 0) ? mitelist.add( new Dermathogides(e.getCordinates() ) ) : mitelist.add(new Dermathogides(e.getCordinates() ) ); // convenntionaly type 0/1 is Dermathogigus/Eucthogius
 					if (e.getType() == 8) mitelist.add( new Dermathogides(e.getCordinates() ) );
 					else mitelist.add( new Euroglyphus(e.getCordinates() ) );
 					egglist.remove(e);
-					map.setStatus(e.getCordinates(), 0);
+					map.setStatus(e.getCordinates(), mitelist.getLast().getType());
 				}
 			}
-			*/
-			// for me to se simulation
+			
+			// visualisation
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			
+			System.out.print("mites : " + mitelist.size() + "   eggs: " + egglist.size());
 			for (int j = 0; j < 10; j++)  {
 				System.out.println();
-				for (int k = 0; k < 10; k++)
-			        System.out.print(map.getStatus(new Cordinates(j,k)) + " ");	
+				for (int k = 0; k < 10; k++) {
+					switch(map.getStatus(new Cordinates(j,k))) {
+					
+					case 0:
+						System.out.print(" _ ");	
+						break;
+					
+					case 1:
+						System.out.print(" * ");	
+						break;
+						
+					case 7:
+						System.out.print(" E ");	
+						break;
+						
+					case 8:
+						System.out.print(" D ");	
+						break;
+						
+					case 80:
+						System.out.print(" d ");	
+						break;
+					
+					case 70:
+						System.out.print(" e ");	
+						break;	
+						
+					}       
+				}    
 			}	
+			
 			System.out.println();
-			System.out.println("mitelist size " + mitelist.size());
-			//
+			System.out.println();
 	    }
 	}
 	
@@ -139,12 +168,16 @@ public class Simulation {
 			} else i--;	
 		}
 		
-		System.out.println("mitelist size " + mitelist.size()); //
-		for (int j = 0; j < 10; j++)  { //
+		System.out.println("SET UP SIMULATION: "); 
+		System.out.println(); 
+		System.out.print("mitelist size: " + mitelist.size()); 
+		for (int j = 0; j < 10; j++)  {
 			System.out.println();
 			for (int k = 0; k < 10; k++)
 		        System.out.print(map.getStatus(new Cordinates(j,k)) + " ");
 		}	
+		System.out.println();
+		System.out.println();
 	}
 	
 	

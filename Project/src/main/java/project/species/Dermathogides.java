@@ -14,13 +14,13 @@ public class Dermathogides extends AMite implements IMite {
 		setHealth(rnd.nextInt(10) + 10);
 		setDirection(rnd.nextInt(10));
 		
-		this.fertility = 11; // species differentiation factor
+		this.fertility = 2; // species differentiation factor
 		this.speed = 6;
 		this.strength = 8;
 		
 		ovulation = new OvulationCycle();
 		Timer timer = new Timer();
-		timer.schedule(ovulation, fertility*5*1000, fertility*5*1000);
+		timer.schedule(ovulation, fertility*4*1000, fertility*4*1000);
 		
 	}
 
@@ -70,7 +70,7 @@ public class Dermathogides extends AMite implements IMite {
 				break;
 				}
 		}
-		//this.setHealth(-1);
+		this.setHealth(-1);
 		return crd;
 	}
 

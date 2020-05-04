@@ -9,7 +9,7 @@ public abstract class AMite {
 	int strength;
 	int speed;
 	int fertility;
-	//
+
 	OvulationCycle ovulation;
 	Cordinates cordinates;
 	

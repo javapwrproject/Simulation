@@ -15,13 +15,13 @@ public class Euroglyphus extends AMite implements IMite {
 			setHealth(rnd.nextInt(10) + 10);
 			setDirection(rnd.nextInt(10));
 			
-			this.fertility = 8; // species differentiation factor
+			this.fertility = 3; 
 			this.speed = 7;
 			this.strength = 5;
 			
 			ovulation = new OvulationCycle();
 			Timer timer = new Timer();
-			timer.schedule(ovulation, fertility*5*1000, fertility*5*1000);
+			timer.schedule(ovulation, fertility*4*1000, fertility*4*1000);
 			
 		}
 
