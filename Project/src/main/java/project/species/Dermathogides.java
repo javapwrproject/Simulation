@@ -73,7 +73,10 @@ public class Dermathogides extends AMite implements IMite {
 		//this.setHealth(-1);
 		return crd;
 	}
+<<<<<<< HEAD
 	
+=======
+>>>>>>> 7a8f3afb51b90ce516e814b1208c915a2081418c
 	public void attack(IMite enemy) {
 		enemy.setHealth(-this.strength);
 	}

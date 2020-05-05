@@ -25,6 +25,10 @@ public abstract class AMite {
 		return (health <=0);
 	}
 	
+	public int getHealth() {
+		return health;
+	}
+	
 	public int getType() {
 		return type;
 	}
@@ -48,7 +52,10 @@ public abstract class AMite {
 		this.direction = direction;
 	}
 	
+<<<<<<< HEAD
 	public int getHealth() {
 		return this.health;
 	}
+=======
+>>>>>>> 7a8f3afb51b90ce516e814b1208c915a2081418c
 }	
