@@ -13,8 +13,8 @@ import java.util.Timer;
 
 public class Simulation {
 	
-	static int dermathoideses = 1;
-	static int euroglyphuses = 2;
+	static int dermathoideses = 2;
+	static int euroglyphuses = 1;
 	static int length = 10;
 	static int width = 10;
 	
@@ -26,11 +26,13 @@ public class Simulation {
 	public static void runSimulation() {
 		
 		while (true) { // MAXTIME
-			for (IMite m : mitelist) { 
+			for (int i = 0; i < mitelist.size(); i++) { //for (IMite m : mitelist) { 
+				IMite m = mitelist.get(i);
 				
 				if(m.isStarved()) {
 					map.setStatus(m.getCordinates(), 0); // information to map that now this place is empty
 					mitelist.remove(m); // if map would have mitelist by reference it might be good because map could remove object from list in case of "setPosition" 
+					i--;
 					continue;
 					}
 				
@@ -44,9 +46,9 @@ public class Simulation {
 				while(bool) {
 					if (mitelist.size() == 0) break; 
 					
-					if (map.getStatus(m.getCordinates()) == m.getType()) //other case it mean that there is his egg
+					if (map.getStatus(m.getCordinates()) == m.getType()) // other case it mean that there is his egg
 						map.setStatus(m.getCordinates(), 0);
-					// System.out.print("index " + mitelist.indexOf(m)); 
+					//System.out.print("index " + mitelist.indexOf(m)); 
 					
 					Cordinates crd = new Cordinates (m.move());
 					if (crd.getX() < 0) crd.setX(0);
@@ -91,13 +93,17 @@ public class Simulation {
 			}
 			
 			
-			for (IEgg e : egglist) { 
+			for (int i = 0; i < egglist.size(); i++) { // for (IEgg e : egglist) { 
+				IEgg e;
+				e = egglist.get(i);
 				
 				if (e.timeToHatch()) {
+
 					if (e.getType() == 8) mitelist.add( new Dermathogides(e.getCordinates() ) );
 					else mitelist.add( new Euroglyphus(e.getCordinates() ) );
-					egglist.remove(e);
 					map.setStatus(e.getCordinates(), mitelist.getLast().getType());
+					egglist.remove(e);
+					i--;
 				}
 			}
 			
