@@ -10,4 +10,8 @@ public interface IMite {
 	public void layEgg();
 	public int getType();
 	public void eat();
+	public int getHealth();
+	public void setHealth(int vital);
+	public void attack(IMite enemy);
+	
 }

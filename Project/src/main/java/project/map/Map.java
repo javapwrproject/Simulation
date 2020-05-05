@@ -38,6 +38,7 @@ public class Map extends TimerTask implements IMap{
 	private void foodGenerate(int N) {
 		Random rnd = new Random();
 		
+		int controler = 0;
 		for (int i = 0; i < N; i++) {
 			
 			int x = rnd.nextInt(X);
@@ -45,7 +46,11 @@ public class Map extends TimerTask implements IMap{
 			
 			if (expanse[x][y] == 0) {
 				expanse[x][y] = 1;
-			} else i--;
+			} else { 
+				i--;
+				controler++;
+			}
+			if (controler > 10*N) break;
 		}
 		
 	}

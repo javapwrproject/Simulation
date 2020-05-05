@@ -15,7 +15,7 @@ public class Euroglyphus extends AMite implements IMite {
 			setHealth(rnd.nextInt(10) + 10);
 			setDirection(rnd.nextInt(10));
 			
-			this.fertility = 3; 
+			this.fertility = 30; 
 			this.speed = 7;
 			this.strength = 5;
 			
@@ -71,7 +71,11 @@ public class Euroglyphus extends AMite implements IMite {
 					break;
 					}
 			}
-			this.setHealth(-1);
+			//this.setHealth(-1);
 			return crd;
+		}
+		
+		public void attack(IMite enemy) {
+			enemy.setHealth(-this.strength);
 		}
 }

@@ -13,8 +13,8 @@ import java.util.Timer;
 
 public class Simulation {
 	
-	static int dermathoideses = 2;
-	static int euroglyphuses = 1;
+	static int dermathoideses = 10;
+	static int euroglyphuses = 10;
 	static int length = 10;
 	static int width = 10;
 	
@@ -23,15 +23,16 @@ public class Simulation {
 	static LinkedList<IMite> mitelist = new LinkedList<>();
 	static LinkedList<IEgg> egglist = new LinkedList<>();
 	
+	
 	public static void runSimulation() {
 		
 		while (true) { // MAXTIME
-			for (int i = 0; i < mitelist.size(); i++) { //for (IMite m : mitelist) { 
+			for (int i = 0; i < mitelist.size(); i++) { 
 				IMite m = mitelist.get(i);
 				
 				if(m.isStarved()) {
 					map.setStatus(m.getCordinates(), 0); // information to map that now this place is empty
-					mitelist.remove(m); // if map would have mitelist by reference it might be good because map could remove object from list in case of "setPosition" 
+					mitelist.remove(m); // if map would have mitelist by reference, map could remove object from list in case of "setPosition" 
 					i--;
 					continue;
 					}
@@ -56,44 +57,133 @@ public class Simulation {
 					if (crd.getY() < 0)  crd.setY(0);
 					if (crd.getY() >= width)  crd.setY(width-1);
 					
-					switch (map.getStatus(crd ) ) {
-					
-						case 0: { // empty
-							map.setStatus(crd, m.getType() );
-							// System.out.println(" case 0");
-							m.getCordinates().setX(crd.getX() );
-							m.getCordinates().setY(crd.getY() );
-							bool = false;
-							break;
-						}
-						case 1: { // food
-							m.eat();
-							map.setStatus(crd, m.getType());
-							// System.out.println("case 1");
-							m.getCordinates().setX(crd.getX() );
-							m.getCordinates().setY(crd.getY() );
-							bool = false;
-							break;
-						}
-						case 80: { // egg
-							break;
-						}
-						case 70: { // egg other specimen
-							break; // to work on very hungry state
-						}
-						case 7: { // other speciemen
-							 break; //in future some inkrementator to work on "surrended state"
-						}		
-						case 8: { // same speciemen
-							 break;
-						}		
-					}
-				}
+					if (m.getType() == 8) {
+						switch (map.getStatus(crd ) ) {
+	
+							case 0: // empty
+								map.setStatus(crd, m.getType() );
+								// System.out.println(" case 0");
+								m.getCordinates().setX(crd.getX() );
+								m.getCordinates().setY(crd.getY() );
+								bool = false;
+								break;
+								
+							case 1: // food
+								m.eat();
+								map.setStatus(crd, m.getType());
+								// System.out.println("case 1");
+								m.getCordinates().setX(crd.getX() );
+								m.getCordinates().setY(crd.getY() );
+								bool = false;
+								break;
+								
+							case 80: // egg
+								break;
+								
+							case 70: // egg other specimen
+								break;
+								
+							case 7: // other speciemen
 				
-			}
+								for (int j = 0; j < mitelist.size(); j++) {
+									IMite enemy = mitelist.get(j);
+									if (enemy.getCordinates().equalss(crd)) {
+										while(enemy.getHealth() > 0 && m.getHealth() > 0) {
+											m.attack(enemy);
+											if (enemy.getHealth() > 0) enemy.attack(m);
+										}
+										
+										if (m.getHealth() > enemy.getHealth()) {
+											map.setStatus(crd, m.getType() );
+											
+											m.getCordinates().setX(crd.getX() );
+											m.getCordinates().setY(crd.getY() );
+											
+											mitelist.remove(enemy);
+											if (i > j) i--;
+											bool = false;
+											System.out.println("D is killer");
+										} else {
+											mitelist.remove(m);
+											i--;
+											bool = false;
+											System.out.println("E is killer");
+											
+										}
+										break;
+									}
+								}
+							break;
+								 
+							case 8:  // same speciemen
+								break;			
+						}
+						
+					} if (m.getType() == 7) { 
+						switch (map.getStatus(crd ) ) {
+		
+							case 0:
+								map.setStatus(crd, m.getType() );
+								// System.out.println(" case 0");
+								m.getCordinates().setX(crd.getX() );
+								m.getCordinates().setY(crd.getY() );
+								bool = false;
+								break;
+								
+							case 1:
+								m.eat();
+								map.setStatus(crd, m.getType());
+								// System.out.println("case 1");
+								m.getCordinates().setX(crd.getX() );
+								m.getCordinates().setY(crd.getY() );
+								bool = false;
+								break;
+								
+							case 80:
+								break;
+								
+							case 70:
+								break;
+								
+							case 7: 
+								break;	
+								 
+							case 8:
+								
+								for (int j = 0; j < mitelist.size(); j++) {
+									IMite enemy = mitelist.get(j);
+									if (enemy.getCordinates().equalss(crd)) {
+										while(enemy.getHealth() > 0 && m.getHealth() > 0) {
+											m.attack(enemy);
+											if (enemy.getHealth() > 0) enemy.attack(m);
+										}
+										
+										if (m.getHealth() > enemy.getHealth()) {
+											map.setStatus(crd, m.getType() );
+											m.getCordinates().setX(crd.getX() );
+											m.getCordinates().setY(crd.getY() );
+											mitelist.remove(enemy);
+											if (i > j) i--;
+											bool = false;
+											System.out.println("E is killer");
+											
+										} else {
+											mitelist.remove(m);
+											i--;
+											bool = false;
+											System.out.println("D is killer");
+											
+										}
+										break;
+									}
+								}
+							break;
+						}
+					}						
+				}	
+			}	
 			
-			
-			for (int i = 0; i < egglist.size(); i++) { // for (IEgg e : egglist) { 
+			for (int i = 0; i < egglist.size(); i++) {
 				IEgg e;
 				e = egglist.get(i);
 				

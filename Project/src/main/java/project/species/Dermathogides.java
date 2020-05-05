@@ -14,7 +14,7 @@ public class Dermathogides extends AMite implements IMite {
 		setHealth(rnd.nextInt(10) + 10);
 		setDirection(rnd.nextInt(10));
 		
-		this.fertility = 2; // species differentiation factor
+		this.fertility = 20; // species differentiation factor
 		this.speed = 6;
 		this.strength = 8;
 		
@@ -70,8 +70,12 @@ public class Dermathogides extends AMite implements IMite {
 				break;
 				}
 		}
-		this.setHealth(-1);
+		//this.setHealth(-1);
 		return crd;
+	}
+	
+	public void attack(IMite enemy) {
+		enemy.setHealth(-this.strength);
 	}
 
 

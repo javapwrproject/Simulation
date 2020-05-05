@@ -47,4 +47,8 @@ public abstract class AMite {
 	void setDirection(int direction) {
 		this.direction = direction;
 	}
+	
+	public int getHealth() {
+		return this.health;
+	}
 }	
