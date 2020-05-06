@@ -33,7 +33,7 @@ public abstract class AMite {
 		return type;
 	}
 	
-	public void setHealth(int vital) { // primitive way to loos health for now
+	public void setHealth(int vital) { // primitive way to loos health 
 		health += vital; 
 	}
 	
@@ -52,10 +52,4 @@ public abstract class AMite {
 		this.direction = direction;
 	}
 	
-<<<<<<< HEAD
-	public int getHealth() {
-		return this.health;
-	}
-=======
->>>>>>> 7a8f3afb51b90ce516e814b1208c915a2081418c
 }	

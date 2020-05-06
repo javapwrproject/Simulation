@@ -12,10 +12,10 @@ public class Euroglyphus extends AMite implements IMite {
 		public Euroglyphus (Cordinates cordinates) {
 			this.cordinates = new Cordinates(cordinates);
 			this.type = 7;
-			setHealth(rnd.nextInt(10) + 10);
+			setHealth(rnd.nextInt(10) + 25);
 			setDirection(rnd.nextInt(10));
 			
-			this.fertility = 30; 
+			this.fertility = 8; 
 			this.speed = 7;
 			this.strength = 5;
 			
@@ -74,10 +74,7 @@ public class Euroglyphus extends AMite implements IMite {
 			//this.setHealth(-1);
 			return crd;
 		}
-<<<<<<< HEAD
 		
-=======
->>>>>>> 7a8f3afb51b90ce516e814b1208c915a2081418c
 		public void attack(IMite enemy) {
 			enemy.setHealth(-this.strength);
 		}
