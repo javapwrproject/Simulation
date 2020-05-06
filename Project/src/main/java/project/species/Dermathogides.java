@@ -11,16 +11,16 @@ public class Dermathogides extends AMite implements IMite {
 	public Dermathogides (Cordinates cordinates) {
 		this.cordinates = new Cordinates(cordinates);
 		this.type = 8;
-		setHealth(rnd.nextInt(10) + 20);
+		setHealth(rnd.nextInt(10) + 40);
 		setDirection(rnd.nextInt(10));
 		
-		this.fertility = 10; // species differentiation factor
-		this.speed = 6;
-		this.strength = 8;
+		this.fertility = 6; // MAX 10
+		this.strength = 9;
+		this.speed = 2;
 		
 		ovulation = new OvulationCycle();
 		Timer timer = new Timer();
-		timer.schedule(ovulation, fertility*4*1000, fertility*4*1000);
+		timer.schedule(ovulation, (10 - fertility)*6*1000, (10 - fertility)*6*1000);
 		
 	}
 
@@ -33,7 +33,7 @@ public class Dermathogides extends AMite implements IMite {
 			setDirection(rnd.nextInt(10));
 		}
 		
-		int k = rnd.nextInt(2) + 1;
+		int k = rnd.nextInt(speed) + 1;
 	
 		switch (getDirection() ) {
 			case 1: {
@@ -77,6 +77,5 @@ public class Dermathogides extends AMite implements IMite {
 	public void attack(IMite enemy) {
 		enemy.setHealth(-this.strength);
 	}
-
 
 }

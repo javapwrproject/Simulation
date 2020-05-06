@@ -2,13 +2,12 @@ package project.species;
 import project.Cordinates;
 
 public abstract class AMite {
-	int type; // char type ?
-	private int direction; // ENUM ? might be 1-9 avalible directions
-	// can be mood by user maybe but not now
+	int type;
+	private int direction; 
 	private int health;
+    int fertility;
 	int strength;
 	int speed;
-	int fertility;
 
 	OvulationCycle ovulation;
 	Cordinates cordinates;
@@ -33,7 +32,7 @@ public abstract class AMite {
 		return type;
 	}
 	
-	public void setHealth(int vital) { // primitive way to loos health 
+	public void setHealth(int vital) {
 		health += vital; 
 	}
 	
@@ -42,7 +41,7 @@ public abstract class AMite {
 	}
 	
 	public void eat() {
-		health += 10; // in the future colaboration with map maybe
+		health += 10;
 	}
 	int getDirection() {
 		return direction;

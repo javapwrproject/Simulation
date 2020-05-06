@@ -1,7 +1,6 @@
 package project.species;
 
 import java.util.TimerTask;
-import java.util.Timer;
 
 public class OvulationCycle  extends TimerTask {
 	

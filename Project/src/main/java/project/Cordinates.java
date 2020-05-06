@@ -14,10 +14,6 @@ public class Cordinates {
 		this.y = cordinates.getY();
 	}
 	
-	public boolean equals(Cordinates crd) {
-		return (this.x == crd.getX() && this.y == crd.getY());
-	}
-	
 	public int getX() {
 		return this.x;
 	}

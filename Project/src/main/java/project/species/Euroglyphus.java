@@ -12,16 +12,16 @@ public class Euroglyphus extends AMite implements IMite {
 		public Euroglyphus (Cordinates cordinates) {
 			this.cordinates = new Cordinates(cordinates);
 			this.type = 7;
-			setHealth(rnd.nextInt(10) + 25);
+			setHealth(rnd.nextInt(10) + 33);
 			setDirection(rnd.nextInt(10));
 			
-			this.fertility = 8; 
-			this.speed = 7;
+			this.fertility = 7; // MAX 10
 			this.strength = 5;
+			this.speed = 3;
 			
 			ovulation = new OvulationCycle();
 			Timer timer = new Timer();
-			timer.schedule(ovulation, fertility*4*1000, fertility*4*1000);
+			timer.schedule(ovulation, (10 - fertility)*6*1000, (10 - fertility)*6*1000);
 			
 		}
 
@@ -34,7 +34,7 @@ public class Euroglyphus extends AMite implements IMite {
 				setDirection(rnd.nextInt(10));
 			}
 			
-			int k = rnd.nextInt(4);
+			int k = rnd.nextInt(speed);
 		
 			switch (getDirection() ) {
 				case 1: {
@@ -71,7 +71,7 @@ public class Euroglyphus extends AMite implements IMite {
 					break;
 					}
 			}
-			//this.setHealth(-1);
+			this.setHealth(-1);
 			return crd;
 		}
 		

@@ -10,16 +10,16 @@ public class Egg extends TimerTask implements IEgg{
 	private boolean hatch;
 	private Cordinates cordinates;	
 	
-	@Override
-	public void run() {
-		hatch = true;
-	}
-	
 	public Egg(int type, Cordinates cordinates) {
 	Timer timer = new Timer();
 	timer.schedule(this, 10*1000);
 	this.type = type;
-	this.cordinates = new Cordinates(cordinates); //deep copy
+	this.cordinates = new Cordinates(cordinates); 
+	}
+	
+	@Override
+	public void run() {
+		hatch = true;
 	}
 	
 	public boolean timeToHatch() {
