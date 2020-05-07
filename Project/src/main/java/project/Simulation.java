@@ -12,9 +12,9 @@ import java.util.Random;
 
 public class Simulation {
 	
-	private static int dermathoideses = 10;
-	private static int euroglyphuses = 10;
-	private static int length = 49;
+	private static int dermathoideses = 1;
+	private static int euroglyphuses = 1;
+	private static int length = 49; 
 	private static int width = 75;
 	
 	private static IMap map;
@@ -32,7 +32,7 @@ public class Simulation {
 					mitelist.remove(m);
 					i -= 1;
 					if (m.getType() == 7) euroglyphuses--;
-					else dermathoideses--;
+					if (m.getType() == 8) dermathoideses--;
 					continue;
 					}
 				
@@ -67,7 +67,7 @@ public class Simulation {
 								
 							case 1: // food
 								m.eat();
-								map.setStatus(crd, m.getType());
+								map.setStatus(crd, m.getType() );
 								m.getCordinates().setX(crd.getX() );
 								m.getCordinates().setY(crd.getY() );
 								bool = false;
@@ -84,7 +84,7 @@ public class Simulation {
 								for (int j = 0; j < mitelist.size(); j++) {
 									IMite enemy = mitelist.get(j);
 									
-									if (enemy.getCordinates().equalss(crd)) {
+									if (enemy.getCordinates().equals (crd)) {
 										while(enemy.getHealth() > 0 && m.getHealth() > 0) {
 											m.attack(enemy);
 											if (enemy.getHealth() > 0) enemy.attack(m);
@@ -95,17 +95,17 @@ public class Simulation {
 											m.getCordinates().setX(crd.getX() );
 											m.getCordinates().setY(crd.getY() );
 											mitelist.remove(enemy);
-											if (i > j) i -= 1;
-											bool = false;
-											System.out.println("Euroglyphus is killed");
 											euroglyphuses--;
+											if (i > j) i -= 1;
+											System.out.println("Euroglyphus is killed");
+											bool = false;
 											
 										} else {
 											mitelist.remove(m);
+											dermathoideses--;
 											i -= 1;
-											bool = false;
 											System.out.println("Dermathoides is killed");
-											dermathoideses--;	
+											bool = false;
 										}
 										break;
 									}
@@ -149,7 +149,7 @@ public class Simulation {
 								for (int j = 0; j < mitelist.size(); j++) {
 									IMite enemy = mitelist.get(j);
 									
-									if (enemy.getCordinates().equalss(crd)) {
+									if (enemy.getCordinates().equals (crd)) {
 										while(enemy.getHealth() > 0 && m.getHealth() > 0) {
 											m.attack(enemy);
 											if (enemy.getHealth() > 0) enemy.attack(m);
@@ -159,17 +159,17 @@ public class Simulation {
 											m.getCordinates().setX(crd.getX() );
 											m.getCordinates().setY(crd.getY() );
 											mitelist.remove(enemy);
-											if (i > j) i--;
-											bool = false;
-											System.out.println("Dermathoides is killed");
 											dermathoideses--;
+											if (i > j) i--;
+											System.out.println("Dermathoides is killed");
+											bool = false;
 											
 										} else {
 											mitelist.remove(m);
-											i--;
-											bool = false;
-											System.out.println("Euroglyphus is killed");
 											euroglyphuses--;	
+											i -= 1;
+											System.out.println("Euroglyphus is killed");
+											bool = false;	
 										}
 										break;
 									}
@@ -242,7 +242,20 @@ public class Simulation {
 			System.out.println();
 			System.out.println();
 			
-			if (dermathoideses == 0 || euroglyphuses == 0) break;
+			boolean end = false;
+			if (dermathoideses == 0) {
+				end = true;
+				for (IEgg e : egglist) 
+					if (e.getType() == 8) end = false;
+			}	
+		
+			if (euroglyphuses == 0) {
+				end = true;
+				for (IEgg e : egglist) 
+					if (e.getType() == 7) end = false;
+			}	
+			
+			if (end == true) break;
 	    }
 	}
 	
@@ -289,7 +302,10 @@ public class Simulation {
 		
 		Simulation.runSimulation();
 		
-		if (dermathoideses == 0) {
+		if (dermathoideses == 0 && euroglyphuses == 0) {
+			System.out.println();
+			System.out.println("END OF SIMULATION BOTH SPIECES EXTINCT");
+		} else if (dermathoideses == 0) {
 			System.out.println();
 			System.out.println("END OF SIMULATION EUROGLYPHUS IS ONLY SPIECE ON THE MAP");	
 		} else {
@@ -299,5 +315,12 @@ public class Simulation {
 		}
 		
 	}
+	
+	public static IMap getMap() {
+		return Simulation.map;	
+	}
 
 }
+/*	map.setStatus(crd, enemy.getType() );
+enemy.getCordinates().setX(crd.getX() );
+enemy.getCordinates().setY(crd.getY() ); // optional mood: attacked (if win) go to place object who attack first */

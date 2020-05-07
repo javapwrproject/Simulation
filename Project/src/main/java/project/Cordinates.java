@@ -39,7 +39,7 @@ public class Cordinates {
 		this.y += y;
 	}
 	
-	public boolean equalss(Cordinates c) {
+	public boolean equals (Cordinates c) {
 		return (c.getX() == this.x && c.getY() == this.y);
 	}
 }

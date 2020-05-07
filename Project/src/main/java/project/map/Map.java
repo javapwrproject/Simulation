@@ -25,7 +25,7 @@ public class Map extends TimerTask implements IMap{
 	public Map (int x, int y) {
 		X = x;
 		Y = y;
-		foodPerDay = 10;
+		foodPerDay = 90;
 		Timer timer = new Timer();
 		timer.schedule(this, 100, 15*1000);
 	}
@@ -69,6 +69,14 @@ public class Map extends TimerTask implements IMap{
 	
 	public void getDimensions() {
 		System.out.println(X + " " + Y);
+	}
+	
+	public int getLength() {
+		return this.X;
+	}
+	
+	public int getWidth() {
+		return this.Y;
 	}
 	
 	public int getFoodPerDay() {
