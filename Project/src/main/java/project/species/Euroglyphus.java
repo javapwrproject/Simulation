@@ -84,6 +84,8 @@ public class Euroglyphus extends AMite implements IMite {
 					}
 			}
 			this.setHealth(-1);
+			
+			crd.checkValues(Simulation.getMap().getLength(), Simulation.getMap().getWidth());
 			return crd;
 		}
 		

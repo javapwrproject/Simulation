@@ -30,6 +30,11 @@ public class Cordinates {
 		this.y = y;
 	}
 	
+	public void set(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+	
 	public Cordinates getCordinates() {
 		return this;
 	}
@@ -41,5 +46,12 @@ public class Cordinates {
 	
 	public boolean equals (Cordinates c) {
 		return (c.getX() == this.x && c.getY() == this.y);
+	}
+	
+	public void checkValues (int width, int length) {
+		if (this.x < 0) x = 0;
+		if (this.x >= length) x = length - 1;
+		if (this.y < 0) y = 0;
+		if (this.y>= width) y = width - 1;
 	}
 }

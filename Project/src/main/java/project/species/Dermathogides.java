@@ -30,7 +30,7 @@ public class Dermathogides extends AMite implements IMite {
 		
 		Cordinates crd = new Cordinates (cordinates);
 		
-		for (int i = 0; i < 100; i++) { // looking food mood
+		for (int i = 0; i < 100; i++) { 
 			int x = rnd.nextInt(3) - 1;
 			int y = rnd.nextInt(3) - 1;
 			crd.modCordinates(x,y);
@@ -80,9 +80,11 @@ public class Dermathogides extends AMite implements IMite {
 			default: {
 				crd.modCordinates(0*k, 0*k);
 				break;
-				}
+			}
 		}
 		this.setHealth(-1);
+		
+		crd.checkValues(Simulation.getMap().getLength(), Simulation.getMap().getWidth());
 		return crd;
 	}
 
