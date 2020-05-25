@@ -2,14 +2,14 @@ package project;
 
 public class Application {
 	
-	private static int dermathoideses = 1;
-	private static int euroglyphuses = 1;
-	private static int length =  5;//51; //49
-	private static int width = 5;//68; //75
+	private static int dermathoideses = 20;
+	private static int euroglyphuses = 20;
+	private static int heigth =  49;//51; //49
+	private static int width = 75;//68; //75
 
 	public static void main(String[] args) {
 		
-		Simulation simulation = new Simulation(dermathoideses, euroglyphuses, length, width);
+		Simulation simulation = new Simulation(dermathoideses, euroglyphuses, heigth, width);
 		
 		try {
 			Thread.sleep(3000);

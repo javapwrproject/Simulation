@@ -5,27 +5,36 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import project.Cordinates;
+import project.Type;
 
 public class Map extends TimerTask implements IMap{
 	
-	private int X; // dimensions
+	private int X; 
 	private int Y;
 	final private int foodPerDay;
 	
-	 int[][] expanse = new int[100][100];
+	 Type[][] expanse = new Type[100][100]; //wypelnic
 	
 	Map (int foodPerDay, int x, int y) {
+		for (int i = 0; i < 100; i++)
+			 for (int j = 0; j < 100; j++)
+				 expanse[i][j] = Type.EMPTY;
+		
 		this.foodPerDay = foodPerDay;
 		X = x;
 		Y = y;
 		Timer timer = new Timer();
-		timer.schedule(this, 100, 14*1000);
+		timer.schedule(this, 100, 15*1000);
 	}
 	
 	public Map (int x, int y) {
+		for (int i = 0; i < 100; i++)
+			 for (int j = 0; j < 100; j++)
+				 expanse[i][j] = Type.EMPTY;
+		
 		X = x;
 		Y = y;
-		foodPerDay = 90;
+		foodPerDay = 100;
 		Timer timer = new Timer();
 		timer.schedule(this, 100, 15*1000);
 	}
@@ -39,8 +48,8 @@ public class Map extends TimerTask implements IMap{
 			int x = rnd.nextInt(X);
 			int y = rnd.nextInt(Y);
 			
-			if (expanse[x][y] == 0) {
-				expanse[x][y] = 1;
+			if (expanse[x][y] == Type.EMPTY) {
+				expanse[x][y] = Type.FOOD;
 			} else { 
 				i--;
 				controler++;
@@ -51,24 +60,19 @@ public class Map extends TimerTask implements IMap{
 	}
 
 	@Override
-	public void setStatus(Cordinates cordinates, int status) {
+	public void setStatus(Cordinates cordinates, Type status) {
 		expanse[cordinates.getX()][cordinates.getY()] = status;
 		
 	}
 
 	@Override
-	public int getStatus(Cordinates cordinates) {
+	public Type getStatus(Cordinates cordinates) {
 		return expanse[cordinates.getX()][cordinates.getY()];
 	}
 
 	@Override
 	public void run() {
 		foodGenerate(foodPerDay);
-		
-	}
-	
-	public void getDimensions() {
-		System.out.println(X + " " + Y);
 	}
 	
 	public int getLength() {

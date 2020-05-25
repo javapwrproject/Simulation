@@ -4,17 +4,19 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import project.Cordinates;
+import project.Type;
 
 public class Egg extends TimerTask implements IEgg{
 	
-	private int type;
+	private Type type;
 	private boolean hatch;
 	private Cordinates cordinates;	
 	
 	Random rnd = new Random();
 	int time = rnd.nextInt(5000);
 	
-	public Egg(int type, Cordinates cordinates) {
+	public Egg(Type type, Cordinates cordinates) {
+		
 	Timer timer = new Timer();
 	timer.schedule(this, (10*1000 + time));
 	this.type = type;
@@ -30,7 +32,7 @@ public class Egg extends TimerTask implements IEgg{
 		return hatch;
 	}
 	
-	public int getType() {
+	public Type getType() {
 		return this.type;
 	}
 	

@@ -22,13 +22,13 @@ public class Cordinates {
 		return this.y;
 	}
 	
-	public void setX(int x) {
+/*	public void setX(int x) {
 		this.x = x;
 	}
 	
 	public void setY(int y) {
 		this.y = y;
-	}
+	}*/
 	
 	public void set(int x, int y) {
 		this.x = x;
@@ -48,7 +48,7 @@ public class Cordinates {
 		return (c.getX() == this.x && c.getY() == this.y);
 	}
 	
-	public void checkValues (int width, int length) {
+	public void checkValues (int length, int width) {
 		if (this.x < 0) x = 0;
 		if (this.x >= length) x = length - 1;
 		if (this.y < 0) y = 0;

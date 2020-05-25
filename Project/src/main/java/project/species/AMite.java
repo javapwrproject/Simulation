@@ -1,8 +1,10 @@
 package project.species;
 import project.Cordinates;
+import project.Type;
 
 public abstract class AMite {
-	int type;
+	Type type;
+	Type eggType;
 	private int direction; 
 	private int health;
     int fertility;
@@ -28,12 +30,20 @@ public abstract class AMite {
 		return health;
 	}
 	
-	public int getType() {
+	public void setHealth(int health) {
+		this.health = health;
+	}
+	
+	public Type getType() {
 		return type;
 	}
 	
-	public void setHealth(int vital) {
-		health += vital; 
+	public Type getEggType() {
+		return eggType;
+	}
+	
+	public void damage(int vital) {
+		health -= vital; 
 	}
 	
 	public void layEgg() {

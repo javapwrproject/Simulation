@@ -13,7 +13,9 @@ public class Printer {
 		this.map = map;
 		
 		System.out.println("SET UP SIMULATION: "); 
-		System.out.println(); 
+		System.out.println();
+		System.out.println("");
+		System.out.println();
 		System.out.println("NUMBER OF DERMATHOGOIDES: " + dermathoideses); 
 		System.out.println("NUMBER OF EUROGLYPHUS: " + euroglyphuses); 
 		System.out.println("FOOD PER DAY " + map.getFoodPerDay()); 
@@ -32,27 +34,27 @@ public class Printer {
 			for (int k = 0; k < map.getWidth(); k++) {
 				switch(map.getStatus(new Cordinates(j,k))) {
 				
-				case 0:
+				case EMPTY:
 					System.out.print("   ");	
 					break;
 				
-				case 1:
+				case FOOD:
 					System.out.print(" * ");	
 					break;
 					
-				case 7:
+				case EUROGLYPH:
 					System.out.print(" E ");	
 					break;
 					
-				case 8:
+				case DERMATH:
 					System.out.print(" D ");	
 					break;
 					
-				case 80:
+				case DERMATHEGG:
 					System.out.print(" d ");	
 					break;
 				
-				case 70:
+				case EUROGLYPHEGG:
 					System.out.print(" e ");	
 					break;	
 					
@@ -81,13 +83,13 @@ public class Printer {
 		
 		if (dermathoideses == 0 && euroglyphuses == 0) {
 			System.out.println();
-			System.out.println("END OF SIMULATION BOTH SPIECES EXTINCT");
+			System.out.print("END OF SIMULATION BOTH SPIECES EXTINCT");
 		} else if (dermathoideses == 0) {
 			System.out.println();
-			System.out.println("END OF SIMULATION EUROGLYPHUS IS ONLY SPIECE ON THE MAP");	
+			System.out.print("END OF SIMULATION EUROGLYPHUS IS ONLY SPIECE ON THE MAP");	
 		} else {
 			System.out.println();
-			System.out.println("END OF SIMULATION DERMATHOIDES IS ONLY SPIECE ON THE MAP");		
+			System.out.print("END OF SIMULATION DERMATHOIDES IS ONLY SPIECE ON THE MAP");		
 		}	
 	}
 
