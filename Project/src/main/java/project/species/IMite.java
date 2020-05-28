@@ -2,10 +2,11 @@ package project.species;
 
 import project.Cordinates;
 import project.Type;
+import project.map.IMap;
 
 public interface IMite {
 	
-	public Cordinates move();
+	public Cordinates move(IMap map);
 	public Cordinates getCordinates();
 	public boolean layEggAbility();
 	public boolean isStarved();

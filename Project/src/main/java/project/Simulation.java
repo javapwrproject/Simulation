@@ -13,53 +13,52 @@ import java.util.Random;
 
 public class Simulation {
 	
-	private static IMap map;
+	private IMap map;
 	private Printer printer;
-	private LinkedList<IMite> mitelist = new LinkedList<>();
-	private List<IEgg> egglist = new LinkedList<>();	
+	private LinkedList<IMite> mites = new LinkedList<>();
+	private List<IEgg> eggs = new LinkedList<>();	
 	
-	public Simulation(int euroglyphuses, int dermathoideses, int heigth, int width) {
+	public Simulation(Properties properties, int heigth, int width) {
 		
 		map = new Map(heigth, width);
-		printer = new Printer(euroglyphuses, dermathoideses, map);
 		
 		Random rnd = new Random();
-		for (int i = 0; i < dermathoideses; i++) {
+		for (int i = 0; i < properties.dermathoideses; i++) {
 			Cordinates crd = new Cordinates(rnd.nextInt(heigth), rnd.nextInt(width));
 			
 			if (map.getStatus(crd) == Type.EMPTY) {
-				map.setStatus(crd, Type.DERMATH);
-				mitelist.add(new Dermathogides(crd));
+				map.setStatus(crd, Type.DERMATHOIDES);
+				mites.add(new Dermathogides(crd));
 			}	else i--;	
 		}
 		
-		for (int i = 0; i < euroglyphuses; i++) {
+		for (int i = 0; i < properties.euroglyphuses; i++) {
 			Cordinates crd = new Cordinates(rnd.nextInt(heigth), rnd.nextInt(width));
 			
 			if (map.getStatus(crd) == Type.EMPTY) {
-				map.setStatus(crd, Type.EUROGLYPH);
-				mitelist.add(new Euroglyphus(crd));
+				map.setStatus(crd, Type.EUROGLYPHUS);
+				mites.add(new Euroglyphus(crd));
 			} else i--;	
-		}		
+		}	
+		
+		printer = new Printer(map);
 	}
 	
 	
 	public void runSimulation() {
 		
-		for (int i = 0; i < mitelist.size(); i++) { 
-			IMite m = mitelist.get(i);
+		for (int i = 0; i < mites.size(); i++) { 
+			IMite m = mites.get(i);
 				
 			if(m.isStarved()) {
 				map.setStatus(m.getCordinates(), Type.EMPTY); 
-				mitelist.remove(m);
+				mites.remove(m);
 				i -= 1;
-				if (m.getType() == Type.EUROGLYPH) printer.setEuroglyphuses(-1);
-				if (m.getType() == Type.DERMATH) printer.setDermathoideses(-1);
 				continue;
 				}
 				
 			if (m.layEggAbility()) {
-				egglist.add(new Egg(m.getEggType(), m.getCordinates()));
+				eggs.add(new Egg(m.getEggType(), m.getCordinates()));
 				m.layEgg();	
 				map.setStatus(m.getCordinates(), m.getEggType() );
 			}
@@ -69,9 +68,9 @@ public class Simulation {
 				if (map.getStatus(m.getCordinates()) == m.getType()) // other case it mean there is his egg
 					map.setStatus(m.getCordinates(), Type.EMPTY);
 					
-				Cordinates crd = new Cordinates (m.move());
+				Cordinates crd = new Cordinates (m.move(map));
 					
-				if (map.getStatus(crd ) == Type.DERMATHEGG || map.getStatus(crd ) == Type.EUROGLYPHEGG || map.getStatus(crd ) == m.getType()) 
+				if (map.getStatus(crd ) == Type.DERMATHOIDES_EGG || map.getStatus(crd ) == Type.EUROGLYPHUS_EGG || map.getStatus(crd ) == m.getType()) 
 					continue;
 				
 				if (map.getStatus(crd ) == Type.EMPTY) {
@@ -87,8 +86,8 @@ public class Simulation {
 					break;
 						
 				} else {
-					for (int j = 0; j < mitelist.size(); j++) {
-						IMite enemy = mitelist.get(j);
+					for (int j = 0; j < mites.size(); j++) {
+						IMite enemy = mites.get(j);
 							
 						if (enemy.getCordinates().equals (crd)) {
 							while(enemy.getHealth() > 0 && m.getHealth() > 0) {
@@ -99,28 +98,13 @@ public class Simulation {
 							if (m.getHealth() > enemy.getHealth()) {
 								map.setStatus(crd, m.getType() );
 								m.getCordinates().set(crd);
-								mitelist.remove(enemy);
-								if (m.getType() == Type.DERMATH) {
-									printer.setEuroglyphuses(-1); 
-									System.out.println("EUROGLYPHUS WAS ATTACKED AND KILLED");
-								}
-								else {
-									printer.setDermathoideses(-1); 
-									System.out.println("DERMATHOIDES IS ATTACK AND LOSE");
-								}
+								printer.messegeDeathDefender(enemy.getType());
+								mites.remove(enemy);
 								if (i > j) i -= 1;
-								bool = false;
-								
+								bool = false;	
 							 }else {
-								mitelist.remove(m);
-								if (m.getType() == Type.DERMATH) {
-									printer.setDermathoideses(-1);
-									System.out.println("DERMATHOIDES WAS ATTACKED AND KILLED");
-								}
-								else {
-									printer.setEuroglyphuses(-1);
-									System.out.println("EUROGLYPHUS IS ATTACK AND LOSE");
-								}
+								printer.messegeDeathAttacker(m.getType());
+								mites.remove(m);
 								i -= 1;
 								bool = false;
 							}
@@ -131,21 +115,18 @@ public class Simulation {
 			}	
 		}	
 			
-		for (int i = 0; i < egglist.size(); i++) {
+		for (int i = 0; i < eggs.size(); i++) {
 			IEgg e;
-			e = egglist.get(i);
+			e = eggs.get(i);
 				
 			if (e.timeToHatch()) {
-				if (e.getType() == Type.DERMATHEGG) {
-					mitelist.add( new Dermathogides(e.getCordinates() ) );
-					printer.setDermathoideses(1); 
-				}
-				else { 
-					mitelist.add( new Euroglyphus(e.getCordinates() ) );
-					printer.setEuroglyphuses(1);
-				}
-				map.setStatus(e.getCordinates(), mitelist.getLast().getType());
-				egglist.remove(e);
+				if (e.getType() == Type.DERMATHOIDES_EGG)
+					mites.add( new Dermathogides(e.getCordinates() ) ); 
+				else 
+					mites.add( new Euroglyphus(e.getCordinates() ) );
+				
+				map.setStatus(e.getCordinates(), mites.getLast().getType());
+				eggs.remove(e);
 				i -= 1;
 			}
 		}
@@ -155,34 +136,33 @@ public class Simulation {
 	public boolean notOver() {
 		boolean over = true;
 		
-		for (IMite m : mitelist) {
-			if (m.getType() == Type.DERMATH) over = false;
+		for (IMite m : mites) {
+			if (m.getType() == Type.DERMATHOIDES) over = false;
 		
-			for (IEgg e : egglist) 
-				if (e.getType() == Type.DERMATHEGG) over = false;	
+			for (IEgg e : eggs) 
+				if (e.getType() == Type.DERMATHOIDES_EGG) over = false;	
 		}	
 		if (over == true) return false;
 		
 		over = true;
-		for (IMite m : mitelist) {
-			if (m.getType() == Type.EUROGLYPH) over = false;
+		for (IMite m : mites) {
+			if (m.getType() == Type.EUROGLYPHUS) over = false;
 		
-			for (IEgg e : egglist) 
-				if (e.getType() == Type.EUROGLYPHEGG) over = false;	
+			for (IEgg e : eggs) 
+				if (e.getType() == Type.EUROGLYPHUS_EGG) over = false;	
 		}	
 		
 		return !over;
 	}
 	
 	
-	public static IMap getMap() {
-		return Simulation.map;	
+	public IMap getMap() {
+		return map;	
 	}
 	
 	public Printer getPrinter() {
 		return this.printer;
 	}
-
 }
 /*	map.setStatus(crd, enemy.getType() );
 enemy.getCordinates().setX(crd.getX() );

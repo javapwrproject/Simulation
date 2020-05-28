@@ -3,13 +3,9 @@ package project;
 import project.map.IMap;
 
 public class Printer {
-	IMap map;
-	int euroglyphuses;
-	int dermathoideses;
+	private final IMap map;
 	
-	public Printer (int euroglyphuses, int dermathoideses, IMap map) {
-		this.euroglyphuses = euroglyphuses;
-		this.dermathoideses = dermathoideses;
+	public Printer (IMap map) {
 		this.map = map;
 		
 		System.out.println("INITIAL CONDITIONS: "); 
@@ -17,8 +13,8 @@ public class Printer {
 		/*System.out.println("HEIGTH OF EXPANSE: " + map.getHeigth());
 		System.out.println("WIDTH OF EXPANSE: " + map.getWidth());*/
 		System.out.println("FOOD PER DAY: " + map.getFoodPerDay()); 
-		System.out.println("NUMBER OF DERMATHOGOIDES: " + dermathoideses); 
-		System.out.println("NUMBER OF EUROGLYPHUS: " + euroglyphuses); 
+		System.out.println("NUMBER OF DERMATHOGOIDES: " + map.getDermathoidesesNumber()); 
+		System.out.println("NUMBER OF EUROGLYPHUS: " + map.getEuroglyphusesNumber()); 
 	}
 	
 	public void print() {
@@ -28,7 +24,7 @@ public class Printer {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		System.out.print("Dermathoideses: " + dermathoideses + "    Euroglyphuses: " + euroglyphuses);
+		System.out.print("Dermathoideses: " + map.getDermathoidesesNumber() + "    Euroglyphuses: " +  map.getEuroglyphusesNumber() );
 		for (int j = 0; j < map.getHeigth(); j++)  {
 			System.out.println();
 			for (int k = 0; k < map.getWidth(); k++) {
@@ -42,19 +38,19 @@ public class Printer {
 					System.out.print(" * ");	
 					break;
 					
-				case EUROGLYPH:
+				case EUROGLYPHUS:
 					System.out.print(" E ");	
 					break;
 					
-				case DERMATH:
+				case DERMATHOIDES:
 					System.out.print(" D ");	
 					break;
 					
-				case DERMATHEGG:
+				case DERMATHOIDES_EGG:
 					System.out.print(" d ");	
 					break;
 				
-				case EUROGLYPHEGG:
+				case EUROGLYPHUS_EGG:
 					System.out.print(" e ");	
 					break;	
 					
@@ -71,26 +67,28 @@ public class Printer {
 		System.out.flush();
 	}
 	
-	public void setDermathoideses(int x) {
-		dermathoideses += x;
-	}
-	
-	public void setEuroglyphuses(int x) {
-		euroglyphuses += x;
-	}
 	
 	public void summary() {
 		
-		if (dermathoideses == 0 && euroglyphuses == 0) {
+		if (map.getDermathoidesesNumber() == 0 && map.getEuroglyphusesNumber() == 0) {
 			System.out.println();
 			System.out.print("END OF SIMULATION BOTH SPIECES EXTINCT");
-		} else if (dermathoideses == 0) {
+		} else if (map.getDermathoidesesNumber() == 0) {
 			System.out.println();
 			System.out.print("END OF SIMULATION EUROGLYPHUS IS ONLY SPIECE ON THE MAP");	
 		} else {
 			System.out.println();
 			System.out.print("END OF SIMULATION DERMATHOIDES IS ONLY SPIECE ON THE MAP");		
 		}	
+	}
+	
+	public void messegeDeathDefender(Type type) {
+		System.out.println(type + " WAS ATTACKED AND KILLED");
+	}
+	
+	public void messegeDeathAttacker(Type type) {
+		System.out.println(type + " ATTACKED AND LOST");
+		
 	}
 
 }

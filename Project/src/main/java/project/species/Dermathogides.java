@@ -3,8 +3,8 @@ package project.species;
 import java.util.Random;
 import java.util.Timer;
 import project.Cordinates;
-import project.Simulation;
 import project.Type;
+import project.map.IMap;
 
 public class Dermathogides extends Mite implements IMite {
 	
@@ -12,8 +12,8 @@ public class Dermathogides extends Mite implements IMite {
 	
 	public Dermathogides (Cordinates cordinates) {
 		this.cordinates = new Cordinates(cordinates);
-		this.type = Type.DERMATH;
-		this.eggType = Type.DERMATHEGG;
+		this.type = Type.DERMATHOIDES;
+		this.eggType = Type.DERMATHOIDES_EGG;
 		setHealth(rnd.nextInt(10) + 40);
 		setDirection(rnd.nextInt(10));
 		
@@ -28,7 +28,7 @@ public class Dermathogides extends Mite implements IMite {
 	}
 
 	@Override
-	public Cordinates move() {
+	public Cordinates move(IMap map) {
 		
 		Cordinates crd = new Cordinates (cordinates);
 		
@@ -37,7 +37,7 @@ public class Dermathogides extends Mite implements IMite {
 			int y = rnd.nextInt(3) - 1;
 			crd.modCordinates(x,y);
 			
-			if (crd.getX() >= 0 && crd.getX() < Simulation.getMap().getHeigth() && crd.getY() >= 0 && crd.getY() < Simulation.getMap().getWidth() && Simulation.getMap().getStatus(crd) == Type.FOOD)
+			if (map.isOnMap(crd) && map.getStatus(crd) == Type.FOOD)
 				return crd;	
 			
 			crd = new Cordinates (cordinates);
@@ -86,7 +86,7 @@ public class Dermathogides extends Mite implements IMite {
 		}
 		this.damage(1);
 		
-		crd.checkValues(Simulation.getMap().getHeigth(), Simulation.getMap().getWidth());
+		map.adjustCordinates(crd);
 		return crd;
 	}
 
