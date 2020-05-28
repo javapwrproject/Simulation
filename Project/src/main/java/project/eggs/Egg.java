@@ -8,7 +8,7 @@ import project.Type;
 
 public class Egg extends TimerTask implements IEgg{
 	
-	private Type type;
+	private final Type type;
 	private boolean hatch;
 	private Cordinates cordinates;	
 	

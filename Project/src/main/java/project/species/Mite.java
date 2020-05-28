@@ -2,7 +2,7 @@ package project.species;
 import project.Cordinates;
 import project.Type;
 
-public abstract class AMite {
+public abstract class Mite {
 	Type type;
 	Type eggType;
 	private int direction; 

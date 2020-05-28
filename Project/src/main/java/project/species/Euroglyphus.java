@@ -7,7 +7,7 @@ import project.Cordinates;
 import project.Simulation;
 import project.Type;
 
-public class Euroglyphus extends AMite implements IMite {
+public class Euroglyphus extends Mite implements IMite {
 		
 		Random rnd = new Random();
 		
@@ -38,7 +38,7 @@ public class Euroglyphus extends AMite implements IMite {
 				int y = rnd.nextInt(3) - 1;
 				crd.modCordinates(x,y);
 				
-				if (crd.getX() >= 0 && crd.getX() < Simulation.getMap().getLength() && crd.getY() >= 0 && crd.getY() < Simulation.getMap().getWidth() && Simulation.getMap().getStatus(crd) == Type.FOOD)
+				if (crd.getX() >= 0 && crd.getX() < Simulation.getMap().getHeigth() && crd.getY() >= 0 && crd.getY() < Simulation.getMap().getWidth() && Simulation.getMap().getStatus(crd) == Type.FOOD)
 					return crd;	
 				
 				crd = new Cordinates (cordinates);
@@ -87,7 +87,7 @@ public class Euroglyphus extends AMite implements IMite {
 			}
 			this.damage(1);
 			
-			crd.checkValues(Simulation.getMap().getLength(), Simulation.getMap().getWidth());
+			crd.checkValues(Simulation.getMap().getHeigth(), Simulation.getMap().getWidth());
 			return crd;
 		}
 		

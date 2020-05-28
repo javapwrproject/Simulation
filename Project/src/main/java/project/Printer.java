@@ -12,13 +12,13 @@ public class Printer {
 		this.dermathoideses = dermathoideses;
 		this.map = map;
 		
-		System.out.println("SET UP SIMULATION: "); 
+		System.out.println("INITIAL CONDITIONS: "); 
 		System.out.println();
-		System.out.println("");
-		System.out.println();
+		/*System.out.println("HEIGTH OF EXPANSE: " + map.getHeigth());
+		System.out.println("WIDTH OF EXPANSE: " + map.getWidth());*/
+		System.out.println("FOOD PER DAY: " + map.getFoodPerDay()); 
 		System.out.println("NUMBER OF DERMATHOGOIDES: " + dermathoideses); 
 		System.out.println("NUMBER OF EUROGLYPHUS: " + euroglyphuses); 
-		System.out.println("FOOD PER DAY " + map.getFoodPerDay()); 
 	}
 	
 	public void print() {
@@ -29,7 +29,7 @@ public class Printer {
 			e.printStackTrace();
 		}
 		System.out.print("Dermathoideses: " + dermathoideses + "    Euroglyphuses: " + euroglyphuses);
-		for (int j = 0; j < map.getLength(); j++)  {
+		for (int j = 0; j < map.getHeigth(); j++)  {
 			System.out.println();
 			for (int k = 0; k < map.getWidth(); k++) {
 				switch(map.getStatus(new Cordinates(j,k))) {

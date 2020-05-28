@@ -18,14 +18,14 @@ public class Simulation {
 	private LinkedList<IMite> mitelist = new LinkedList<>();
 	private List<IEgg> egglist = new LinkedList<>();	
 	
-	public Simulation(int euroglyphuses, int dermathoideses, int length, int width) {
+	public Simulation(int euroglyphuses, int dermathoideses, int heigth, int width) {
 		
-		map = new Map(length, width);
+		map = new Map(heigth, width);
 		printer = new Printer(euroglyphuses, dermathoideses, map);
 		
 		Random rnd = new Random();
 		for (int i = 0; i < dermathoideses; i++) {
-			Cordinates crd = new Cordinates(rnd.nextInt(length), rnd.nextInt(width));
+			Cordinates crd = new Cordinates(rnd.nextInt(heigth), rnd.nextInt(width));
 			
 			if (map.getStatus(crd) == Type.EMPTY) {
 				map.setStatus(crd, Type.DERMATH);
@@ -34,7 +34,7 @@ public class Simulation {
 		}
 		
 		for (int i = 0; i < euroglyphuses; i++) {
-			Cordinates crd = new Cordinates(rnd.nextInt(length), rnd.nextInt(width));
+			Cordinates crd = new Cordinates(rnd.nextInt(heigth), rnd.nextInt(width));
 			
 			if (map.getStatus(crd) == Type.EMPTY) {
 				map.setStatus(crd, Type.EUROGLYPH);
@@ -76,14 +76,14 @@ public class Simulation {
 				
 				if (map.getStatus(crd ) == Type.EMPTY) {
 					map.setStatus(crd, m.getType() );
-					m.getCordinates().set(crd.getX(), crd.getY() );
+					m.getCordinates().set(crd);
 					break;
 				}
 					
 				if (map.getStatus(crd ) == Type.FOOD) {
 					m.eat();
 					map.setStatus(crd, m.getType() );
-					m.getCordinates().set(crd.getX(), crd.getY() );
+					m.getCordinates().set(crd);
 					break;
 						
 				} else {
@@ -98,7 +98,7 @@ public class Simulation {
 								
 							if (m.getHealth() > enemy.getHealth()) {
 								map.setStatus(crd, m.getType() );
-								m.getCordinates().set(crd.getX(), crd.getY() );
+								m.getCordinates().set(crd);
 								mitelist.remove(enemy);
 								if (m.getType() == Type.DERMATH) {
 									printer.setEuroglyphuses(-1); 
