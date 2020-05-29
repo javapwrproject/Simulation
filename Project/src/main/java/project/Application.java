@@ -1,5 +1,10 @@
 package project;
 
+/**
+ * Responsible of starting the process of simulation and providing the initial properties
+ * @version 2.0
+ * @author Wiktor Porowski & Miłosz Tarka
+ */
 public class Application {
 	
 	private static final int heigth = 49; //51 for linux terminal

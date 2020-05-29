@@ -2,7 +2,9 @@ package project.map;
 
 import project.Cordinates;
 import project.Type;
-
+/**
+ * Provides operations that can be executed on map
+ */
 public interface IMap {
 	void setStatus(Cordinates cordinates, Type status); 
 	public Type getStatus(Cordinates cordinates);

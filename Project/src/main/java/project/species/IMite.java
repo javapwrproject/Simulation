@@ -3,7 +3,9 @@ package project.species;
 import project.Cordinates;
 import project.Type;
 import project.map.IMap;
-
+/** 
+ * Have declarations of general mite behaviors
+ */
 public interface IMite {
 	
 	public Cordinates move(IMap map);

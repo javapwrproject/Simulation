@@ -6,7 +6,9 @@ import java.util.TimerTask;
 
 import project.Cordinates;
 import project.Type;
-
+/**
+ * Stores information about each field and periodically generate the food 
+ */
 public class Map extends TimerTask implements IMap{
 	
 	private final int height; 

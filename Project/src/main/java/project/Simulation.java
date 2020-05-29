@@ -1,5 +1,4 @@
 package project;
-
 import project.species.IMite; 
 import project.species.Dermathogides;
 import project.species.Euroglyphus; 
@@ -10,7 +9,10 @@ import project.map.Map;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-
+/**
+ * Responsible for creating and destroying objects 
+ * Iterating through objects to actualize their positions, carry out processes of fights and updating the map
+ */
 public class Simulation {
 	
 	private IMap map;

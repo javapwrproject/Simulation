@@ -5,7 +5,11 @@ import java.util.Timer;
 import project.Cordinates;
 import project.Type;
 import project.map.IMap;
-
+/**
+ * This objects represents one type of mites
+ * Can move and attack other mite
+ * Have unique factors
+ */
 public class Dermathogides extends Mite implements IMite {
 	
 	Random rnd = new Random();

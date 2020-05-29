@@ -5,7 +5,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 import project.Cordinates;
 import project.Type;
-
+/**
+ * Stories information about their species and monitor remaining time to hatch
+ */
 public class Egg extends TimerTask implements IEgg{
 	
 	private final Type type;

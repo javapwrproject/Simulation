@@ -1,8 +1,11 @@
 package project.species;
 import project.Cordinates;
 import project.Type;
-
-public abstract class Mite {
+/**
+ * Have general implementations of methods common for any type of mite
+ * Have information about traits which mites have
+ */
+public abstract class Mite implements IMite {
 	Type type;
 	Type eggType;
 	private int direction; 

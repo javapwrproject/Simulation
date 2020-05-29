@@ -1,5 +1,7 @@
 package project;
-
+/**
+ * Represents the location on the Cartesian plane
+ */
 public class Cordinates {
 	private int x;
 	private int y;

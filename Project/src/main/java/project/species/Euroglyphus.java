@@ -6,7 +6,11 @@ import java.util.Timer;
 import project.Cordinates;
 import project.Type;
 import project.map.IMap;
-
+/**
+ * This objects represents one type of mites
+ * Can move and attack other mite
+ * Have unique factors
+ */
 public class Euroglyphus extends Mite implements IMite {
 		
 		Random rnd = new Random();
@@ -18,7 +22,7 @@ public class Euroglyphus extends Mite implements IMite {
 			setHealth(rnd.nextInt(10) + 33);
 			setDirection(rnd.nextInt(10));
 			
-			this.fertility = 7; 
+			this.fertility = 8; 
 			this.strength = 5;
 			this.speed = 3;
 			
@@ -93,5 +97,6 @@ public class Euroglyphus extends Mite implements IMite {
 		
 		public void attack(IMite enemy) {
 			enemy.damage(this.strength);
+			this.setHealth(this.getHealth() + 1);
 		}
 }

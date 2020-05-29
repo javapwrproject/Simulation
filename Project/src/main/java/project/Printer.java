@@ -1,7 +1,9 @@
 package project;
 
 import project.map.IMap;
-
+/**
+ * Responsible for printing an actual situation of simulation in the console
+ */
 public class Printer {
 	private final IMap map;
 	
