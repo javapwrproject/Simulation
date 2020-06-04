@@ -10,7 +10,7 @@ public class Application {
 	private static final int heigth = 49; //51 for linux terminal
 	private static final int width = 75; //68
 
-	public static void main(String[] args) {
+	public static void main (String[] args) {
 		
 		Simulation simulation = new Simulation(new Properties(), heigth, width);
 		
@@ -21,8 +21,8 @@ public class Application {
 		}
 		
 		while (simulation.notOver() ) {
-			simulation.runSimulation();
 			simulation.getPrinter().print();
+			simulation.runSimulation();
 		}	
 		
 		simulation.getPrinter().summary();

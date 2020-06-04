@@ -166,6 +166,3 @@ public class Simulation {
 		return this.printer;
 	}
 }
-/*	map.setStatus(crd, enemy.getType() );
-enemy.getCordinates().setX(crd.getX() );
-enemy.getCordinates().setY(crd.getY() ); // optional mood: attacked (if win) go to place object who attack first */

@@ -21,7 +21,7 @@ public class Dermathogides extends Mite implements IMite {
 		setHealth(rnd.nextInt(10) + 40);
 		setDirection(rnd.nextInt(10));
 		
-		this.fertility = 6; 
+		this.fertility = 5; 
 		this.strength = 9;
 		this.speed = 2;
 		

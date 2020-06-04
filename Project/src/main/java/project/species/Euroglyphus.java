@@ -22,7 +22,7 @@ public class Euroglyphus extends Mite implements IMite {
 			setHealth(rnd.nextInt(10) + 33);
 			setDirection(rnd.nextInt(10));
 			
-			this.fertility = 8; 
+			this.fertility = 7; 
 			this.strength = 5;
 			this.speed = 3;
 			
