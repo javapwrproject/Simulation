@@ -4,7 +4,7 @@ Mites colony agent simulation
 Simualtion is about two type of mites Dermatophagoides and Euroglyphus
 mites lives in bed where peroidically deliviered is food-epidermis.
 
-VERSION 1.1
+VERSION 2.0
 Mites moving in random way if it have food in the "step range" it go for it. (food up his "health level")
 It lose health by walking or fighting with diffrent type of mite.
 It decide for fight if place where it want go is occupated by diffrent type of mite.
