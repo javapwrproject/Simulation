@@ -65,8 +65,8 @@ public class Simulation {
 				map.setStatus(m.getCordinates(), m.getEggType() );
 			}
 				
-			boolean bool = true;
-			while(bool) {
+			boolean notAvaliablePlace = true;
+			while(notAvaliablePlace) {
 				if (map.getStatus(m.getCordinates()) == m.getType()) // other case it mean there is his egg
 					map.setStatus(m.getCordinates(), Type.EMPTY);
 					
@@ -103,12 +103,12 @@ public class Simulation {
 								printer.messegeDeathDefender(enemy.getType());
 								mites.remove(enemy);
 								if (i > j) i -= 1;
-								bool = false;	
+								notAvaliablePlace = false;	
 							 }else {
 								printer.messegeDeathAttacker(m.getType());
 								mites.remove(m);
 								i -= 1;
-								bool = false;
+								notAvaliablePlace = false;
 							}
 							break;
 						}
